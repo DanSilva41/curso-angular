@@ -1,31 +1,42 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { MeuPrimeiroComponent } from './meu-primeiro/meu-primeiro.component';
+import { MeuPrimeiro2Component } from './meu-primeiro2/meu-primeiro2.component';
+import { CursosModule } from './cursos/cursos.module';
 
 describe('AppComponent', () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        MeuPrimeiroComponent,
+        MeuPrimeiro2Component
+      ],
+      imports: [
+        CursosModule
       ],
     }).compileComponents();
   }));
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
-  it(`should have as title 'primeiro-projeto'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('primeiro-projeto');
+  it('should create the app', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it(`should have as title 'Olá mundo, Angular!'`, () => {
+    expect(component.title).toEqual(`Olá mundo, Angular!`);
   });
 
   it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to primeiro-projeto!');
+    expect(compiled.querySelector('h1').textContent).toContain('Olá mundo, Angular!');
   });
 });
