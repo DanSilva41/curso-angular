@@ -11,4 +11,10 @@ describe('workspace-project App', () => {
     page.navigateTo();
     expect(page.getParagraphText()).toEqual('Olá mundo, Angular!');
   });
+  
+  it('Deve testar', () => {
+    page.navigateTo();
+    expect(page.getParagraphText()).toEqual('Olá mundo, Angular!');
+  });
+
 });

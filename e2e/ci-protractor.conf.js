@@ -12,7 +12,10 @@ exports.config = {
     './src/**/*.e2e-spec.ts'
   ],
   capabilities: {
-    'browserName': 'chrome'
+    'browserName': 'chrome',
+    'chromeOptions': {
+      'args': ['--headless', '--no-sandbox', '--disable-gpu', '--window-size=800x600']
+    }
   },
   directConnect: true,
   baseUrl: 'http://localhost:4200/',
@@ -28,6 +31,7 @@ exports.config = {
     });
     
     fs.emptyDir('e2e/_relatorios', (err) => { err && console.log(err); });
+    fs.emptyDir('e2e/_relatorios/screenshots', (err) => { err && console.log(err); });
  
    const jasmineEnv = jasmine.getEnv();
  
@@ -45,7 +49,7 @@ exports.config = {
            const browserName = caps.get('browserName');
  
            browser.takeScreenshot().then(function (png) {
-             const stream = fs.createWriteStream('e2e/_relatorios/' + browserName + '-' + result.fullName + '.png');
+             const stream = fs.createWriteStream('e2e/_relatorios/screenshots/' + browserName + '-' + result.fullName + '.png');
              stream.write(new Buffer(png, 'base64'));
              stream.end();
            });
@@ -71,11 +75,13 @@ exports.config = {
        reportTitle: 'Testes end-to-end - CPR Web',
        outputPath: './e2e/_relatorios',
        outputFilename: 'Testes end-to-end - CPR Web',
-       screenshotPath: '.',
+       disableScreenshot: false,
+       screenshotPath: './screenshots',
        testBrowser: browserName,
        browserVersion: browserVersion,
        modifiedSuiteName: false,
        screenshotsOnlyOnFailure: true,
+       clearFoldersBeforeTest: true,
        testPlatform: platform
      };
      new HTMLReport().from('e2e/_relatorios/e2exmlresults.xml', testConfig);
